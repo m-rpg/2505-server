@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/m-rpg/2505-server/handlers"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -33,6 +35,14 @@ func init() {
 	}
 }
 
+// @title M-RPG Game Server API
+// @version 1.0
+// @description Game server with user authentication and daily rewards
+// @host localhost:8080
+// @BasePath /api
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	r := gin.Default()
 
@@ -51,6 +61,9 @@ func main() {
 	// API routes
 	api := r.Group("/api")
 	{
+		// Swagger documentation
+		api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 		// Auth routes
 		auth := api.Group("/auth")
 		{

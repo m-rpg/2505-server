@@ -1,4 +1,4 @@
-.PHONY: build run test clean migrate
+.PHONY: build run test clean migrate deps fmt lint docs help
 
 # Build the application
 build:

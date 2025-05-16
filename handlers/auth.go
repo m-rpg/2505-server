@@ -18,6 +18,15 @@ func InitAuth(database *gorm.DB) {
 	db = database
 }
 
+// @Summary Register a new user
+// @Description Register a new user with username and password
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param user body object true "User registration info"
+// @Success 201 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /api/auth/register [post]
 func Register(c *gin.Context) {
 	var input struct {
 		Username string `json:"username" binding:"required"`
@@ -49,6 +58,15 @@ func Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"message": "User registered successfully"})
 }
 
+// @Summary Login user
+// @Description Login with username and password
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param user body object true "User login info"
+// @Success 200 {object} map[string]interface{}
+// @Failure 401 {object} map[string]string
+// @Router /api/auth/login [post]
 func Login(c *gin.Context) {
 	var input struct {
 		Username string `json:"username" binding:"required"`

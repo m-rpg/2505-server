@@ -8,6 +8,14 @@ import (
 	"github.com/m-rpg/2505-server/models"
 )
 
+// @Summary Get user profile
+// @Description Get the current user's profile information
+// @Tags rewards
+// @Produce json
+// @Security ApiKeyAuth
+// @Success 200 {object} map[string]interface{}
+// @Failure 404 {object} map[string]string
+// @Router /api/profile [get]
 func GetProfile(c *gin.Context) {
 	userID := c.GetUint("user_id")
 
@@ -28,6 +36,14 @@ func GetProfile(c *gin.Context) {
 	})
 }
 
+// @Summary Get daily reward status
+// @Description Check if user can claim daily reward
+// @Tags rewards
+// @Produce json
+// @Security ApiKeyAuth
+// @Success 200 {object} map[string]interface{}
+// @Failure 404 {object} map[string]string
+// @Router /api/daily-reward [get]
 func GetDailyReward(c *gin.Context) {
 	userID := c.GetUint("user_id")
 
@@ -56,6 +72,15 @@ func GetDailyReward(c *gin.Context) {
 	})
 }
 
+// @Summary Claim daily reward
+// @Description Claim the daily reward and update streak
+// @Tags rewards
+// @Produce json
+// @Security ApiKeyAuth
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} map[string]string
+// @Failure 404 {object} map[string]string
+// @Router /api/daily-reward/claim [post]
 func ClaimDailyReward(c *gin.Context) {
 	userID := c.GetUint("user_id")
 
