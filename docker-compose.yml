@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: m_rpg_2505
+      POSTGRES_PASSWORD: m_rpg_2505
+      POSTGRES_DB: m_rpg_2505
+    ports:
+      - 5432:5432
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
