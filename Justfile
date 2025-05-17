@@ -3,8 +3,8 @@ build:
     go build -o bin/server
 
 # Run the application
-run:
-    go run main.go
+run *ARGS:
+    go run main.go {{ARGS}}
 
 # Run tests
 test:

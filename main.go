@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/m-rpg/2505-server/handlers"
+	"github.com/m-rpg/2505-server/models"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"gorm.io/driver/postgres"
@@ -33,6 +34,8 @@ func init() {
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
 	}
+
+	handlers.InitAuth(db) // Initialize handlers with the DB connection
 }
 
 // @title M-RPG Game Server API
@@ -44,6 +47,17 @@ func init() {
 // @in header
 // @name Authorization
 func main() {
+	// Check for migrate command
+	if len(os.Args) > 1 && os.Args[1] == "migrate" {
+		log.Println("Running database migrations...")
+		err := db.AutoMigrate(&models.User{}) // Add other models here if you have them
+		if err != nil {
+			log.Fatal("Failed to migrate database:", err)
+		}
+		log.Println("Database migration completed.")
+		return // Exit after migration
+	}
+
 	r := gin.Default()
 
 	// CORS middleware
